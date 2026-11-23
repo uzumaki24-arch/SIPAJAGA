@@ -1,0 +1,33 @@
+{
+  "instansi": "BPS Kota Palopo",
+  "aplikasi": "SIPAJAGA",
+  "zonaWaktu": "Asia/Makassar",
+  "mulaiRotasi": "2026-11-23",
+  "diperbarui": "2026-11-23",
+  "catatan": "Jadwal mengikuti rotasi mingguan Shift 1, 2, dan 3. Bayu bertugas tetap pada Sabtu malam dan dini hari Minggu. Perubahan jadwal (tukar jaga atau libur) tercantum langsung pada tabel.",
+  "tugas": { "A": "Jaga Pos Pagi", "B": "Jaga Kantor Malam", "C": "Front Office", "Tetap": "Petugas Tetap" },
+  "rotasi": [
+    { "A": "Bahrum", "B": "Trisno", "C": "Fauzan" },
+    { "A": "Fauzan", "B": "Bahrum", "C": "Trisno" },
+    { "A": "Trisno", "B": "Fauzan", "C": "Bahrum" }
+  ],
+  "hari": [
+    { "nama": ["Senin", "Selasa", "Rabu", "Kamis", "Jumat"], "slot": [
+      { "mulai": "07:00", "selesai": "18:00", "tugas": "A" },
+      { "mulai": "07:00", "selesai": "17:00", "tugas": "C" },
+      { "mulai": "18:00", "selesai": "24:00", "tugas": "B" },
+      { "mulai": "24:00", "selesai": "07:00", "tugas": "B" }
+    ] },
+    { "nama": ["Sabtu"], "slot": [
+      { "mulai": "07:00", "selesai": "18:00", "tugas": "C" },
+      { "mulai": "18:00", "selesai": "24:00", "tugas": "Tetap", "petugas": "Bayu" },
+      { "mulai": "24:00", "selesai": "07:00", "tugas": "Tetap", "petugas": "Bayu" }
+    ] },
+    { "nama": ["Minggu"], "slot": [
+      { "mulai": "07:00", "selesai": "18:00", "tugas": "B" },
+      { "mulai": "18:00", "selesai": "24:00", "tugas": "A" }
+    ] }
+  ],
+  "libur": [],
+  "pengecualian": []
+}

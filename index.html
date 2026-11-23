@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f2f55">
+<meta name="description" content="SIPAJAGA: jadwal petugas jaga BPS Kota Palopo. Lihat siapa yang bertugas sekarang, jadwal mingguan, dan rotasi. Dapat di-install seperti aplikasi dan bisa dipakai offline.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SIPAJAGA">
+<title>SIPAJAGA | Jadwal Petugas Jaga BPS Kota Palopo</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="mask-icon" href="favicon.svg" color="#0f2f55">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#jadwal">Langsung ke jadwal</a>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#beranda" aria-label="SIPAJAGA, kembali ke beranda">
+      <img class="brand-logo" src="assets/logo.svg" alt="" width="44" height="44">
+      <span class="brand-copy"><strong>BPS Kota Palopo</strong><span>SIPAJAGA · Jadwal Petugas Jaga</span></span>
+    </a>
+    <nav class="top-nav" aria-label="Navigasi utama">
+      <a href="#beranda">Beranda</a>
+      <a href="#jadwal">Jadwal</a>
+      <a href="#rotasi">Rotasi</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn" id="notifBtn" type="button" aria-label="Aktifkan notifikasi jaga" title="Notifikasi jaga">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
+      </button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Ubah tema" title="Ubah tema (terang/gelap)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="btn ghost" id="installBtn" type="button" hidden>Install aplikasi</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap status-wrap">
+  <div class="status-row" id="statusRow" hidden>
+    <span class="pill offline">Offline · memakai data tersimpan</span>
+  </div>
+  <div class="update-banner" id="updateBanner" hidden>
+    <span>Versi baru SIPAJAGA sudah tersedia.</span>
+    <button class="btn small primary" id="updateBtn" type="button">Perbarui sekarang</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="beranda" class="now" aria-live="polite">
+    <div class="now-head">
+      <div><p class="eyebrow" id="greeting">Selamat datang</p><h1>Sedang bertugas</h1></div>
+      <div class="live"><span class="dot"></span><span id="clock">Memuat jadwal...</span></div>
+    </div>
+    <div class="now-list" id="nowList">
+      <div class="skeleton-card"></div><div class="skeleton-card"></div>
+    </div>
+    <div class="next-wrap" id="nextWrap" hidden>
+      <h2>Berikutnya</h2>
+      <div class="next-list" id="nextList"></div>
+    </div>
+  </section>
+
+  <div class="banner err" id="error" hidden></div>
+
+  <section id="jadwal" class="block">
+    <div class="week-bar">
+      <div>
+        <p class="eyebrow">Jadwal mingguan</p>
+        <h2 id="weekTitle">Minggu ini</h2>
+        <p id="weekRange">Memuat...</p>
+      </div>
+      <div class="nav">
+        <span class="shift" id="shiftBadge"></span>
+        <button class="btn icon-only" id="prev" type="button" aria-label="Minggu sebelumnya">‹</button>
+        <button class="btn" id="today" type="button">Minggu ini</button>
+        <button class="btn icon-only" id="next" type="button" aria-label="Minggu berikutnya">›</button>
+        <button class="btn" id="print" type="button">Cetak</button>
+      </div>
+    </div>
+    <div class="tabs" id="tabs" role="tablist" aria-label="Pilih hari"></div>
+    <div class="banner" id="holiday" hidden></div>
+    <div class="card"><div class="scroll"><table>
+      <caption id="dayCap">Memuat jadwal...</caption>
+      <thead><tr><th scope="col">Waktu (WITA)</th><th scope="col">Tugas</th><th scope="col">Petugas</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="3" class="empty">Memuat jadwal...</td></tr></tbody>
+    </table></div></div>
+  </section>
+
+  <section id="rotasi" class="block">
+    <p class="eyebrow">Rotasi</p>
+    <h2>Rotasi tiga minggu</h2>
+    <div class="card"><div class="scroll"><table>
+      <thead><tr><th scope="col">Minggu</th><th scope="col">Shift</th><th scope="col">Pos Pagi (A)</th><th scope="col">Kantor Malam (B)</th><th scope="col">Front Office (C)</th></tr></thead>
+      <tbody id="rotBody"><tr><td colspan="5" class="empty">Memuat rotasi...</td></tr></tbody>
+    </table></div></div>
+  </section>
+  <p class="note" id="note"></p>
+</main>
+
+<nav class="bottom-nav" aria-label="Navigasi bawah">
+  <a href="#beranda"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Beranda</span></a>
+  <a href="#jadwal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span>Jadwal</span></a>
+  <a href="#rotasi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7a8 8 0 1 0 1 7M20 3v4h-4"/></svg><span>Rotasi</span></a>
+</nav>
+
+<footer><div class="wrap"><strong id="footerBrand">BPS Kota Palopo</strong><span id="updated"></span></div></footer>
+
+<div class="toast-stack" id="toast" aria-live="polite"></div>
+
+<script src="assets/store.js"></script>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
